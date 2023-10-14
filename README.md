@@ -6,7 +6,7 @@
 
 ![Phoxene Logo](https://www.phoxene.com/wp-content/uploads/2018/09/flash-strobe-manufacturer-phoxene.png)
 
-This package is a Python Modbus RTU on serial port driver
+This module is a Python Modbus RTU on serial port driver
 
 # Usage
 This driver has been developped as Modbus layer for Phoxene's devices that
