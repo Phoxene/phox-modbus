@@ -8,7 +8,8 @@ __pycache__/
 dist/
 
 # Shpinx documentation
-doc/
+_static
+_templates
 build/
 make.bat
 makefile
