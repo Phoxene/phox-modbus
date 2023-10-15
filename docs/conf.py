@@ -1,7 +1,11 @@
 # Added to allows to find the source files:
 import os
 import sys
-sys.path.append(os.path.abspath('C:/Python/PhoxModbus/phox_modbus/'))
+# Path working using local sphinx compilation
+#sys.path.append(os.path.abspath('C:/Python/PhoxModbus/phox_modbus/'))
+
+# Path workin in all conditions (used for compilation on RTD servers)
+sys.path.insert(0, os.path.abspath('../'))
 
 # Configuration file for the Sphinx documentation builder.
 #
