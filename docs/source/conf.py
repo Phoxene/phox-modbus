@@ -5,7 +5,7 @@ import sys
 #sys.path.append(os.path.abspath('C:/Python/PhoxModbus/phox_modbus/'))
 
 # Path workin in all conditions (used for compilation on RTD servers)
-sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('../../'))
 
 # Configuration file for the Sphinx documentation builder.
 #

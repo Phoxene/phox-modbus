@@ -10,9 +10,13 @@ implements a serial Modbus communication.
 
 It is mainly used by Phoxene's applications or devices' drivers
 
+Project page on GitHub: https://github.com/Phoxene/phox-modbus
+
 Download page: https://pypi.org/project/phox-modbus/
 
 This page: https://phox-modbus.readthedocs.io/en/latest/
+
+
 
 Contents:
 
