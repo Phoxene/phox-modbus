@@ -7,6 +7,9 @@ modbus.py
 ..
 .. .. autoclass:: modbus.Modbus
 ..    :no-index:
+
+Modbus class
+============
 .. autoclass:: modbus.Modbus
     :members:
     :undoc-members:

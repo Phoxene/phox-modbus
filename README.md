@@ -14,6 +14,9 @@ implements a serial Modbus communication.
 
 It is mainly used by Phoxene's applications or devices' drivers 
 
+# Documentation
+https://phox-modbus.readthedocs.io/en/main/
+
 # Installation
 ```shell
 pip install -i https://pypi.org/simple/ phox_modbus
