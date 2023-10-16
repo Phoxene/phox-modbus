@@ -1,15 +1,16 @@
-# Phoxene Modbus driver
+# PHOXENE Modbus driver
 
 ![Build Status](https://img.shields.io/pypi/v/phox_modbus.svg)
 ![python](https://img.shields.io/pypi/pyversions/phox_modbus.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Documentation Status](https://readthedocs.org/projects/phox-modbus/badge/?version=main)](https://phox-modbus.readthedocs.io/)
 
 ![Phoxene Logo](https://www.phoxene.com/wp-content/uploads/2018/09/flash-strobe-manufacturer-phoxene.png)
 
 This module is a Python Modbus RTU on serial port driver
 
 # Usage
-This driver has been developped as Modbus layer for Phoxene's devices that
+This driver has been developped as Modbus layer for PHOXENE's devices that
 implements a serial Modbus communication.
 
 It is mainly used by Phoxene's applications or devices' drivers 

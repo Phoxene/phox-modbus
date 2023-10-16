@@ -7,7 +7,7 @@ Overview
 
 This module is a Python Modbus serial RTU driver
 
-It has been developped as Modbus layer for Phoxene's devices that
+It has been developped as Modbus layer for PHOXENE's devices that
 implements a serial Modbus communication.
 
 It is realeased under a free software licence,

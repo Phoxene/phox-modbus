@@ -1,2 +1,5 @@
-sphinx-rtd-theme
 pyserial
+build
+twine
+sphinx
+sphinx-rtd-theme

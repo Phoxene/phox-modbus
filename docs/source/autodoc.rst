@@ -24,3 +24,9 @@ Exceptions
 .. autoclass:: modbus.MasterReportedError
 .. autoclass:: modbus.NoResponseError
 .. autoclass:: modbus.InvalidResponseError
+
+  Exceptions inherited from pyserial
+----------------------------------
+.. autoclass:: serial.SerialException
+.. autoclass:: serial.PortNotOpenError
+.. autoclass:: serial.SerialTimeoutException

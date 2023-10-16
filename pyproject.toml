@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "phox-modbus"
-version = "1.0.1"
+version = "1.0.2"
 license = "MIT"
 authors = [
   { name="Aurelien PLANTIN", email="a.plantin@phoxene.com"}
