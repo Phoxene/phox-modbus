@@ -37,7 +37,6 @@ __authors__ = ("Aurélien PLANTIN")
 __contact__ = ("a.plantin@phoxene.com")
 __copyright__ = "MIT"
 __date__ = "2023-10-10"
-__version__= "1.0.0"
 #Style guide: refers to PEP 8
 #Type Hints: refers to PEP 484
 #Docstrings: refers to Spinx documentation 
@@ -274,6 +273,8 @@ class Modbus:
         state_dict = {'ON': 0xFF00, 'OFF': 0x0000, 'KEY': key}
         if state not in state_dict:
             raise ValueError("Unexpected value for state parameter")
+        if state == 'KEY' and not isinstance(key, int):
+            raise ValueError("key parameter shall be an integer")
         self._request(device_addr = device_addr, instr = 5, 
                       reg_addr = coil_addr, value =  state_dict[state])
 
