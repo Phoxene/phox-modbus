@@ -476,7 +476,7 @@ class Modbus:
                 tx_data.extend(_word2bytes(kwargs['value']))
             # Subfunctions 11..18: Return a counter
             elif subfunction in range(11, 19):    
-                pass
+                tx_data.extend([0,0]) 
             else:
                 raise ValueError(f"Unsuported subfunction {subfunction}")
         # 11: Get comm event count / 12: Get comm event log
