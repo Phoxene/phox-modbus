@@ -373,6 +373,12 @@ class Modbus:
                              mei_type = 14, idcode = 1, object_id = 0,
                              **kwargs))
 
+    def send(self, tx_data: list) -> None:
+        # Send the frame
+        self.serial_link.reset_input_buffer()
+        self.serial_link.write(tx_data)
+        self.feedback(Sent = tx_data)
+
     def _request(
         self, device_addr: int, instr: int,
         mode: str = 'legacy', hack: str = None, **kwargs
