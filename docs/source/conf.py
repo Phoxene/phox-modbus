@@ -18,7 +18,12 @@ sys.path.insert(0, os.path.abspath('../../'))
 project = 'phox_modbus'
 copyright = '2023, PHOXENE'
 author = 'Aurélien PLANTIN'
-release = '1.0.4'
+# Import de la version depuis le fichier projet
+# Bidouille APLAN
+import sys
+sys.path.append("..")
+from modbus import __version__
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
