@@ -2,12 +2,6 @@
 modbus.py
 =========
 
-..
-  .. automodule:: modbus
-..
-.. .. autoclass:: modbus.Modbus
-..    :no-index:
-
 Modbus class
 ============
 .. autoclass:: modbus.Modbus
@@ -25,7 +19,7 @@ Exceptions
 .. autoclass:: modbus.NoResponseError
 .. autoclass:: modbus.InvalidResponseError
 
-  Exceptions inherited from pyserial
+Exceptions inherited from pyserial
 ----------------------------------
 .. autoclass:: serial.SerialException
 .. autoclass:: serial.PortNotOpenError

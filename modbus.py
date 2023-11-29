@@ -36,7 +36,8 @@ Exceptions handling:
 __authors__ = ("Aurélien PLANTIN")
 __contact__ = ("a.plantin@phoxene.com")
 __copyright__ = "MIT"
-__date__ = "2023-10-10"
+__date__ = "2023-11-28"
+__version__= "1.0.4"
 #Style guide: refers to PEP 8
 #Type Hints: refers to PEP 484
 #Docstrings: refers to Spinx documentation 
@@ -54,10 +55,20 @@ exceptions_dict = {
     7 : "Negative ack",
     8 : "Memory parity error",
     9 : "Gateway path unavailable",
-    10: "Gateway target device failed to respond", 
+    10: "Gateway target device failed to respond"
  }
 
 parity_dict = {'odd' : serial.PARITY_ODD, 'even' : serial.PARITY_EVEN} 
+
+objects_id_dict = {
+    0 : "VendorName",
+    1 : "ProductCode",
+    2 : "MajorMinorRevision",
+    3 : "VendorUrl",
+    4 : "ProductName",
+    5 : "ModelName",
+    6 : "UserApplicationName"
+}
 
 def _word2bytes(value: int) -> list:
     """Split a word into a list of bytes, little endian.
@@ -213,7 +224,8 @@ class Modbus:
     def read_registers(self, 
                        device_addr: int, 
                        reg_addr: int, 
-                       nb_reg: int = 1
+                       nb_reg: int = 1,
+                       **kwargs 
                        ) -> list:
         """Implements Modbus function 03: Read holding registers.
 
@@ -230,13 +242,13 @@ class Modbus:
                                         or can not be configured.
         """       
         return(self._request(device_addr = device_addr, instr = 3,
-                             reg_addr = reg_addr, nb_reg = nb_reg))
+                             reg_addr = reg_addr, nb_reg = nb_reg, **kwargs))
 
     def read_register(self, 
                        device_addr: int, 
                        reg_addr: int, 
                        ) -> int:
-        """Implements Modbus function 03: Read holding registers.
+        """Implements Modbus function 03 for a single register
 
         :param device_addr: Modbus slave address of the device (0 to 247).
         :param reg_addr: Starting address (0x0000 to 0xFFFF).
@@ -256,9 +268,10 @@ class Modbus:
                           device_addr: int,
                           coil_addr: int,
                           state: str,
-                          key = None
+                          key = None,
+                          **kwargs
                           ) -> None:
-        """Implements Modbus function 05 Write single coil.
+        """Implements Modbus function 05: Write single coil.
 
         :param device_addr: Modbus slave address of the device (0 to 247).
         :param coil_addr: Coil's address (0x0000 to 0xFFFF).
@@ -273,10 +286,8 @@ class Modbus:
         state_dict = {'ON': 0xFF00, 'OFF': 0x0000, 'KEY': key}
         if state not in state_dict:
             raise ValueError("Unexpected value for state parameter")
-        if state == 'KEY' and not isinstance(key, int):
-            raise ValueError("key parameter shall be an integer")
         self._request(device_addr = device_addr, instr = 5, 
-                      reg_addr = coil_addr, value =  state_dict[state])
+                      reg_addr = coil_addr, value =  state_dict[state], **kwargs)
 
     def write_register(self,
                        device_addr: int,
@@ -318,8 +329,7 @@ class Modbus:
                               subfunction = 0, value = value, **kwargs))
 
     def diag_read(self, device_addr: int, subfunction: int, **kwargs) -> int:
-        """Implements Modbus function 08 > 
-                                    Sub-function 11 to 18: Return counters.
+        """Implements Modbus function 08 > Sub-functions 11 to 18: Return counters.
         
         :param device_addr: Modbus slave address of the device (0 to 247).
         :param subfunction: Sub-function (11 to 18).
@@ -356,12 +366,62 @@ class Modbus:
         return(self._request(device_addr = device_addr, instr = 16,
                               reg_addr = reg_addr, data = values, **kwargs))
     
-    def read_device_id(self, device_addr: int, **kwargs) -> int:
-        """Implements Modbus function 43 > MEI 14: Read device id.
+    def get_comm_event_counter(self, device_addr: int, **kwargs) -> dict:
+        """Implements Modbus function 11 -> Get Comm Event Counter
 
         :param device_addr: Modbus slave address of the device (0 to 247).
 
-        :returns int: device id.
+        :returns dict: "Event count": int, "Message count": int,
+        
+        :raises ValueError: Arguments are out of range.
+        :raises ModbusError: Modbus protocol error
+                            or the device answers with an exception.
+        :raises serial.SerialException: Serial port is missing, busy,
+                                        or can not be configured.
+        """        
+        return(self._request(device_addr = device_addr, instr = 11, **kwargs))
+
+    def get_comm_event_log(self, device_addr: int, **kwargs) -> dict:
+        """Implements Modbus function 12 -> Get Comm Event Log
+
+        :param device_addr: Modbus slave address of the device (0 to 247).
+
+        :returns dict: "Event count": int, "Message count": int,
+                       "Events": list(int),
+
+        :raises ValueError: Arguments are out of range.
+        :raises ModbusError: Modbus protocol error
+                            or the device answers with an exception.
+        :raises serial.SerialException: Serial port is missing, busy,
+                                        or can not be configured.
+        """        
+        return(self._request(device_addr = device_addr, instr = 12, **kwargs))
+
+    def report_server_id(self, device_addr: int, **kwargs) -> dict:
+        """Implements Modbus function 17 -> Report server ID
+
+        :param device_addr: Modbus slave address of the device (0 to 247).
+
+        :returns dict: "Server ID": str, 
+                       "Run indicator status": "ON" or "OFF"
+
+        :raises ValueError: Arguments are out of range.
+        :raises ModbusError: Modbus protocol error
+                            or the device answers with an exception.
+        :raises serial.SerialException: Serial port is missing, busy,
+                                        or can not be configured.
+        """        
+        return(self._request(device_addr = device_addr, instr = 17, **kwargs))
+
+    def read_device_id(self, device_addr: int, idcode = 1, object_id = 0, **kwargs) -> dict:
+        """Implements Modbus function 43 > MEI 14: Read device id.
+
+        :param device_addr: Modbus slave address of the device (0 to 247).
+        :param idcode: Read device ID code 
+                       (01: basic, 02: regular, 03: extended, 04: specific)
+        :param object_id: Id of the first requested object
+
+        :returns dict: dictionnay of id objects.
         
         :raises ValueError: Arguments are out of range.
         :raises ModbusError: Modbus protocol error
@@ -370,18 +430,13 @@ class Modbus:
                                         or can not be configured.
         """        
         return(self._request(device_addr = device_addr, instr = 43,
-                             mei_type = 14, idcode = 1, object_id = 0,
+                             mei_type = 14, idcode = idcode, object_id = object_id,
                              **kwargs))
 
-    def send(self, tx_data: list) -> None:
-        # Send the frame
-        self.serial_link.reset_input_buffer()
-        self.serial_link.write(tx_data)
-        self.feedback(Sent = tx_data)
 
     def _request(
         self, device_addr: int, instr: int,
-        mode: str = 'legacy', hack: str = None, **kwargs
+        mode: str = 'fast', hack: str = None, **kwargs
         ) -> int or list:
         """Modbus general request function
         Supported Modbus functions:
@@ -393,6 +448,7 @@ class Modbus:
             * Fonction 11 (get comm event counter)
             * Fonction 12 (get comm event log)
             * Fonction 16 (write_registers)
+            * Fonction 17 (Report server ID)
             * Fonction 43 (Read Device Identification)
 
         :param kwargs:
@@ -434,6 +490,7 @@ class Modbus:
             if instr not in [5, 6]:
                 raise ValueError(f"Unsupported Modbus instruction {instr} "
                                  "in broadcast")
+        
         if mode not in ['legacy','fast']:
             raise ValueError(f"Unsupported value {mode} for mode parameter")
         
@@ -476,18 +533,28 @@ class Modbus:
         # 8: Diagnostics
         elif instr == 8:
             subfunction = kwargs['subfunction']
-            tx_data.extend(_word2bytes(subfunction))
             # Subfunction 0: Query data
+
             if subfunction == 0:                  
-                tx_data.extend(_word2bytes(kwargs['value']))
-            # Subfunctions 11..18: Return a counter
-            elif subfunction in range(11, 19):    
-                tx_data.extend([0,0]) 
+                value = kwargs['value']
+            # Subfunction 1: Restart communication option
+            # Subfunction 2: Return diagnostic register
+            # Subfunction 4: Force listen only mode
+            # subfunction 10: Clear counters and Diagnostic registers
+            # Subfonctions 11 to 18: Return a message counter     
+            # Subfunction 20: Clear overrun counter and flag            
+            elif subfunction in [0, 1, 2, 4, 10, 20, *range (11,19)]:
+                value = 0
             else:
                 raise ValueError(f"Unsuported subfunction {subfunction}")
-        # 11: Get comm event count / 12: Get comm event log
-        elif instr in [11,12]:  
+            
+            tx_data.extend(_word2bytes(subfunction))
+            tx_data.extend(_word2bytes(value))
+
+        # 11: Get comm event count / 12: Get comm event log / 17: Report slave ID
+        elif instr in [11, 12, 17]:  
             pass
+
         # 16: write registers
         elif instr == 16:       
             data = kwargs['data']   # Raise an exception if data key not in kwargs
@@ -502,7 +569,9 @@ class Modbus:
             tx_data.append(2 * nb_reg)
             for value in data:
                 tx_data.extend(_word2bytes(value))
-        elif instr == 43:       # 43: Read device identification
+        
+        # 43: Read device identification
+        elif instr == 43:      
             tx_data.append(kwargs['mei_type'])
             tx_data.append(kwargs['idcode'])
             tx_data.append(kwargs['object_id'])
@@ -549,10 +618,10 @@ class Modbus:
                 pass
             # Functions for which rx_data[2] is a byte_count
             # -> expecting "byte_count" more bytes
-            elif rx_data[1] in [3, 4, 12, 23]:
+            elif rx_data[1] in [3, 4, 12, 17, 23]:
                 rx_data.extend(list(self.serial_link.read(rx_data[2])))
             # Functions for which 8 bytes (3 more bytes) are expected
-            elif rx_data[1] in [5, 6, 8, 11, 15, 16, 17]:
+            elif rx_data[1] in [5, 6, 8, 11, 15, 16]:
                 rx_data.extend(list(self.serial_link.read(3)))
             # Functions for which 10 bytes (5 more bytes) are expected
             elif rx_data[1] == 22:
@@ -560,26 +629,45 @@ class Modbus:
             # Function 43: Encapsulated Interface Transport
             elif rx_data[1] == 43:
                 # MEI type = 14: Read device identification                     
-                if rx_data[2] == 14:                             
-                    ## Ici il faut dépioter toute la trame pour savoir le nombre d'octets attendus!!!
-                    pass
+                if rx_data[2] == 14:
+                    # A minimum of 13 bytes (8 more bytes) are expected
+                    # 5 more byte are read
+                    rx_data.extend(list(self.serial_link.read(5)))
+                    number_of_objects = rx_data[7]
+                    index = 8                     # First object ID position in rx_data is on byte 8
+                    for i in range(0, rx_data[7]):          # rx_data[7] is the number of objects in the frame
+                        object_length = rx_data[index + 1]
+                        # Expected frame size is increased from object lenght + 2 bytes
+                        rx_data.extend(list(self.serial_link.read(object_length + 2)))
+                        index += object_length + 2
             # Functions that are not supported in fast mode
             else:
                 raise ValueError("Fast mode not available for instruction "
                                  f"{instr}, please try with legacy mode")
         # --- End of fast mode Modbus reception
 
-        # --- Modbus reception in legacy mode (wait for a timeout)   
+        # --- Modbus reception in legacy mode (wait for a timeout)
+        # According to the client system (computer, OS, RS485 transceiver...)
+        # Legacy mode can catch additionnal bytes or lose pieces of frame
+        # Legacy mode is not recommanded
+        # Legacy mode can be used in debug to catch a modbus string while ignoring the expected lenght
         else:
-            # 1ms wait (OS does not allow 750µs timeout (T1.5))
-            time.sleep(0.001)       
+            LEGACY_TIMEOUT = 0.002  # Modbus T1.5 should be 750µs but OS are not able to handle it
+            time.sleep(LEGACY_TIMEOUT)
+            print ("LEGACY MODE RECEPTION")
             while (self.serial_link.in_waiting != 0):
                 rx_data.extend(list(self.serial_link.read(
                                             self.serial_link.in_waiting)))
-                # 1ms wait (OS does not allow 750µs timeout (T1.5))
-                time.sleep(0.001)
+                time.sleep(LEGACY_TIMEOUT)
                 # The modbus T3.5 is not verified
                 # OS precision does not allow accurate verificatio of T3.5
+            # In legacy mode, sometimes is received an extra 0xFF byte
+            # At the moment the issue is not identified
+            # It is patched here by removing the last byte
+            if rx_data[-1] == 0xFF and _crc16(rx_data) != 0:
+                self.feedback(Event = "Extra 0xFF byte error", Received = rx_data)
+                rx_data.pop()
+        
         # --- End of legacy mode Modbus reception
 
         # CRC check
@@ -602,6 +690,7 @@ class Modbus:
 
         # Check if the returned frame is an exception
         if (rx_data[1] & 0b10000000) != 0:
+            self.feedback(Event = "Modbus Exception", Received = rx_data)
             # Illegal request Modbus exceptions (legal exception's codes)
             if rx_data[2] in [1, 2, 3]:     
                 raise IllegalRequestError(f"{exceptions_dict[rx_data[2]]}")
@@ -658,6 +747,86 @@ class Modbus:
             # Returned frame is conform
             self.feedback(Event = "Frame_OK", Received = rx_data)
             return((rx_data[4] << 8) + rx_data[5])
+        
+        # Instruction 11
+        if rx_data[1] == 11:
+            self.feedback(Event = "Frame_OK", Received = rx_data)
+            dict = {}
+            dict["Status"] = (rx_data[2] << 8) + rx_data[3]
+            dict["Event count"] = (rx_data[4] << 8) + rx_data[5]
+            return(dict)
+        
+        # Instruction 12
+        # According to the Modbus specification, Event count is not the number
+        # of recorded event but the number of successful message completion
+        if rx_data[1] == 12:
+            self.feedback(Event = "Frame_OK", Received = rx_data)
+            byte_count = rx_data[2]
+            nb_events = byte_count - 6
+            dict = {}
+            dict["Status"] = (rx_data[3] << 8) + rx_data[4]
+            dict["Event count"] = (rx_data[5] << 8) + rx_data[6]
+            dict["Message count"] = (rx_data[7] << 8) + rx_data[8]
+            dict["Events"] = rx_data[9 : 9 + nb_events]
+            return(dict)
+
+        # Instruction 17
+        if rx_data[1] == 17:
+            byte_count = rx_data[2]
+            print (byte_count)
+            id_length = byte_count - 1
+            if rx_data[1 + byte_count] == 0:
+                run_indicator_status = "OFF"
+            elif rx_data[byte_count + 2] == 0xFF:
+                run_indicator_status = "ON"
+            else:
+                self.feedback(Event = "Unexpected_content", Received = rx_data)
+                raise InvalidResponseError("Unexpected value for run indicator status field")
+            self.feedback(Event = "Frame_OK", Received = rx_data)
+            dict = {}
+            dict["Server ID"] = ''.join(chr(c) for c in rx_data[3 : 3 + id_length])
+            dict["Run indicator status"] = run_indicator_status
+            return(dict)
+
+        # Instruction 43
+        if rx_data[1] == 43:
+            # MEI type = 14: Read device identification                     
+            if rx_data[2] == 14:
+                if rx_data[3] != kwargs['idcode']:
+                    self.feedback(Event = "Unexpected_content", Received = rx_data)
+                    raise InvalidResponseError("Returned idcode error")
+                ## rx_data[4] = conformity level
+                if rx_data[4] not in [0x01, 0x02, 0x03, 0x81, 0x82, 0x83]:
+                    self.feedback(Event = "Unexpected_content", Received = rx_data)
+                    raise InvalidResponseError("Conformity level byte value is invalid")
+                ## rx_data[5] = more follows. 0x00 = nothing follows, 0xFF = more follows
+                if rx_data[5] not in [0x00, 0xFF]:
+                    self.feedback(Event = "Unexpected_content", Received = rx_data)
+                    raise InvalidResponseError("More follow byte value is invalid")
+                if rx_data[5] == 0xFF:
+                    print ("More follows option is not supported")
+                if rx_data[6] != 00:
+                    self.feedback(Event = "Unexpected_content", Received = rx_data)
+                    raise InvalidResponseError("Next object id error")
+                number_of_objects = rx_data[7]
+                object_position = 8                     # First object ID position in rx_data is on byte 8
+                object_dict = {}
+                for i in range(0, number_of_objects):
+                    object_id = rx_data[object_position]
+                    object_length = rx_data[object_position + 1]
+                    object_value = rx_data[(object_position + 2):(object_position + 2 + object_length)]
+                    object_str = ''.join(chr(c) for c in object_value)
+                    object_position += (object_length + 2)
+                    if object_id in objects_id_dict:
+                        key = objects_id_dict[object_id]
+                        object_dict[key] = object_str
+                    else: 
+                        key = object_id
+                        object_dict[key] = object_value
+                #print (object_dict)
+                self.feedback(Event = "Frame_OK", Received = rx_data)
+                return(object_dict)
+        
         # Requested instruction is not implemented at reception side 
         raise ValueError("Instruction not allowed")
 
@@ -712,7 +881,7 @@ if __name__ == "__main__":
     # Change Modbus link baudrate
     #print (f'link.baudrate = {link.baudrate}')
     #link.baudrate = 'B'
-    #print (f'link.baudrate = {link.baudrate}')
+    #print (f'link.baudrate = {link.baudrate}'py)
 
     # Read the first register from the modbus device with slave address = 1
     # A ModbusError exception occurs du to the wrong parity

@@ -19,17 +19,18 @@ MIT License Copyright (c) 2023 PHOXENE
 Features
 ========
 * Implemented Modbus functions:
-    * Fonction 03 (read holding registers)
-    * Fonction 04 (read input registers)
-    * Fonction 05 (force single coil)
-    * Fonction 06 (preset single resgister)
-    * Fonction 08: subfunctions 0 and 11 to 19 (diagnostics)
-    * Fonction 11 (get comm event counter)
-    * Fonction 12 (get comm event log)
-    * Fonction 16 (write_registers)
-    * Fonction 43 (Read Device Identification)
-* Optional "fast reception mode" that skip receive timeout
-  by using frame lenght prediction
+    * Function 03 - Read holding registers
+    * Function 04 - Read input registers
+    * Function 05 - Force single coil
+    * Function 06 - Preset single register
+    * Function 08 - Subfunctions 0 and 11 to 19 - Diagnostics
+    * Function 11 - Get comm event counter
+    * Function 12 - Get comm event log
+    * Function 16 - Write multiple registers
+    * Function 17 - Report server ID
+    * Function 43 - MEI 14 - Read device identification
+* Use fast reception mode that is not legacy (skip receive timeout
+  by using frame lenght prediction). A legacy mode is available.
 * Hack tools allows to test modbus server response to corrupted frames
 * Optional feeeback of sent and received frames as well as Modbus events.
   Main usage is debbug.
@@ -49,4 +50,4 @@ phox-modbus can be installed from PyPI:
 
     pip install phox-modbus
 
-Developers also may be interested to get the source archive, because it contains examples, tests and the this documentation.
+Developers also may be interested to get the source archive, because it contains examples, tests and this documentation.

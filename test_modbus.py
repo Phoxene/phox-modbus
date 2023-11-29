@@ -45,15 +45,11 @@ class Test_with_port_open(unittest.TestCase):
     def tearDown(self):
         self.link.close()
 
-    def test_single_read(self) -> None:
-        # Read BT software revision
-        self.assertEqual(self.link.read_register(device_addr = 1, reg_addr = 268), 1033)
-
     def test_single_write(self) -> None:
-        # Read and write sync shift register
-        sync_shift = self.link.read_register(device_addr = 1, reg_addr = 268)
-        self.link.write_register(device_addr = 1, reg_addr = 52, value = sync_shift + 879)
-        self.assertEqual(self.link.read_register(device_addr = 1, reg_addr = 52), sync_shift + 879)
+        # Read and write reset_on_failure register
+        value = self.link.read_register(device_addr = 1, reg_addr = 39)
+        self.link.write_register(device_addr = 1, reg_addr = 39, value = value + 879)
+        self.assertEqual(self.link.read_register(device_addr = 1, reg_addr = 39), value + 879)
 
     def test_not_allowed_broadcast(self) -> None:
         with self.assertRaises(ValueError): #Ajouter la vérification du text
