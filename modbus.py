@@ -37,7 +37,7 @@ __authors__ = ("Aurélien PLANTIN")
 __contact__ = ("a.plantin@phoxene.com")
 __copyright__ = "MIT"
 __date__ = "2023-11-28"
-__version__= "1.1.0-a"
+__version__= "1.1.0"
 #Style guide: refers to PEP 8
 #Type Hints: refers to PEP 484
 #Docstrings: refers to Spinx documentation 
