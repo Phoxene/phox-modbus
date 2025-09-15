@@ -20,8 +20,8 @@ https://phox-modbus.readthedocs.io/en/main/
 
 # Installation
 ```shell
-pip install -i https://pypi.org/simple/ phox_modbus
-PhoxModbus```
+pip install phox-modbus
+```
 
 # Dependencies
 * pySerial
