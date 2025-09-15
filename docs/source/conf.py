@@ -4,6 +4,9 @@ import sys
 # Path working using local sphinx compilation
 #sys.path.append(os.path.abspath('C:/Python/PhoxModbus/phox_modbus/'))
 
+# Ajouter le dossier source pour que Sphinx trouve index.rst
+sys.path.insert(0, os.path.abspath("source"))
+
 # Path workin in all conditions (used for compilation on RTD servers)
 sys.path.insert(0, os.path.abspath('../../'))
 
