@@ -18,7 +18,8 @@ jobs:
       url: https://pypi.org/project/phox-modbus
     permissions:
       id-token: write
-
+      contents: write
+      
     steps:
       - name: Download all the dists
         uses: actions/download-artifact@v4
