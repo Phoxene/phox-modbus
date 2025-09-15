@@ -3,8 +3,8 @@ name: Release to PyPI
 on:
   push:
     tags:
-      - "*"  # Déclenche sur tout tag
-
+      #- "*"  # Déclenche sur tout tag
+      - 'v*.*.*'   # seulement les tags de type v1.2.3
 jobs:
   build:
     uses: ./.github/workflows/build.yml
@@ -19,7 +19,7 @@ jobs:
     permissions:
       id-token: write
       contents: write
-      
+
     steps:
       - name: Download all the dists
         uses: actions/download-artifact@v4
