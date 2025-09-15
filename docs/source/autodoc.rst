@@ -4,7 +4,7 @@ modbus.py
 
 Modbus class
 ============
-.. autoclass:: modbus.Modbus
+.. autoclass:: phox_modbus.modbus.Modbus
     :members:
     :undoc-members:
     :show-inheritance:
@@ -12,12 +12,12 @@ Modbus class
 
 Exceptions
 ==========
-.. autoclass:: modbus.ModbusError
-.. autoclass:: modbus.SlaveExceptionError
-.. autoclass:: modbus.IllegalRequestError
-.. autoclass:: modbus.MasterReportedError
-.. autoclass:: modbus.NoResponseError
-.. autoclass:: modbus.InvalidResponseError
+.. autoclass:: phox_modbus.modbus.ModbusError
+.. autoclass:: phox_modbus.modbus.SlaveExceptionError
+.. autoclass:: phox_modbus.modbus.IllegalRequestError
+.. autoclass:: phox_modbus.modbus.MasterReportedError
+.. autoclass:: phox_modbus.modbus.NoResponseError
+.. autoclass:: phox_modbus.modbus.InvalidResponseError
 
 Exceptions inherited from pyserial
 ----------------------------------

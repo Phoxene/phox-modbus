@@ -1,5 +1,4 @@
+# Dependancies for phox_modbus project
+# This file can be used for automated installation of the dependancies
+# The pypi packaging process does not use this file but the pyproject.toml file
 pyserial
-build
-twine
-sphinx
-sphinx-rtd-theme

@@ -7,6 +7,9 @@ import sys
 # Path workin in all conditions (used for compilation on RTD servers)
 sys.path.insert(0, os.path.abspath('../../'))
 
+# Ajoute le dossier src à sys.path (uest for local compilation)
+sys.path.insert(0, os.path.abspath(os.path.join('..', 'src')))
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -16,13 +19,13 @@ sys.path.insert(0, os.path.abspath('../../'))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'phox_modbus'
-copyright = '2023, PHOXENE'
+copyright = '2025, PHOXENE'
 author = 'Aurélien PLANTIN'
 # Import de la version depuis le fichier projet
 # Bidouille APLAN
-import sys
+#import sys
 sys.path.append("..")
-from modbus import __version__
+from src.phox_modbus.modbus import __version__
 release = __version__
 
 # -- General configuration ---------------------------------------------------

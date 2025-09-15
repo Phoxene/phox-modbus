@@ -13,7 +13,7 @@ implements a serial Modbus communication.
 It is realeased under a free software licence,
 see the LICENSE file for more details
 
-MIT License Copyright (c) 2023 PHOXENE
+MIT License Copyright (c) 2025 PHOXENE
 
 
 Features
@@ -23,7 +23,7 @@ Features
     * Function 04 - Read input registers
     * Function 05 - Force single coil
     * Function 06 - Preset single register
-    * Function 08 - Subfunctions 0 and 11 to 19 - Diagnostics
+    * Function 08 - Subfunctions 0, 1, 2, 4 and 11 to 20 - Diagnostics
     * Function 11 - Get comm event counter
     * Function 12 - Get comm event log
     * Function 16 - Write multiple registers

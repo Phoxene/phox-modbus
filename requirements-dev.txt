@@ -1,0 +1,7 @@
+# Dependancies for phox_modbus project development
+# This file can be used for automated installation of the dependancies
+build
+twine
+sphinx
+sphinx-rtd-theme
+unittest 

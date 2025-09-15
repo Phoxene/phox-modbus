@@ -1,15 +1,4 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-
-# Distribution / packaging
-dist/
-
-# Shpinx documentation
-docs/source/_static/
-docs/source/_templates/
-docs/build/
-docs/make.bat
-docs/makefile
+/.venv
+/.vscode
+/MANIFEST.in
+/phox_modbus.code-workspace
