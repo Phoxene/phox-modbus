@@ -32,5 +32,15 @@ classifiers = [
 [project.optional-dependencies]
 dev = ["build", "twine", "sphinx", "sphinx-rtd-theme", "unittest"]
 
+# List of dependencies used for building the documentation
+# Allows to install the package and all documentation dependencies using: pip install -e .[docs
+[project.optional-dependencies]
+docs = [
+    "sphinx>=7.0",
+    "sphinx-rtd-theme",
+    "myst-parser",
+    "sphinx-autodoc-typehints",
+]
+
 [project.urls]
 "Homepage" = "https://www.phoxene.com"
