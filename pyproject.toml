@@ -7,7 +7,7 @@ where = ["src"]
 
 [project]
 name = "phox-modbus"
-version = "1.2.2.dev2"
+version = "1.2.2"
 license = "MIT"
 authors = [{ name="Aurelien PLANTIN", email="a.plantin@phoxene.com"}]
 dependencies = ["pyserial>=3.5"]

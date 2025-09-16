@@ -1,3 +1,9 @@
+## [1.2.2] - 2025-09-16
+- Correct an issue with GitHub sigstore
+
+## [1.2.1] - 2025-09-15
+- Correct an issue with pypi publishing
+
 ## [1.2.0] - 2025-09-11
 - Add a max_serial_latency parameter to the Modbus class. This parameter is intented to increase Modbus T1.5 and T3.5 parameters
 -  when the client Modbus client serial latency can not comply with Modbus standard
