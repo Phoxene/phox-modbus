@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modbus.py &mdash; phox_modbus 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="phox-modbus" href="presentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            phox_modbus
+              <img src="https://www.phoxene.com/wp-content/uploads/2018/09/flash-strobe-manufacturer-phoxene.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">phox-modbus</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">modbus.py</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modbus-class">Modbus class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#phox_modbus.modbus.Modbus"><code class="docutils literal notranslate"><span class="pre">Modbus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.parity"><code class="docutils literal notranslate"><span class="pre">Modbus.parity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.baudrate"><code class="docutils literal notranslate"><span class="pre">Modbus.baudrate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.timeout"><code class="docutils literal notranslate"><span class="pre">Modbus.timeout</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.is_open"><code class="docutils literal notranslate"><span class="pre">Modbus.is_open</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.register_feedback_handler"><code class="docutils literal notranslate"><span class="pre">Modbus.register_feedback_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.open"><code class="docutils literal notranslate"><span class="pre">Modbus.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.close"><code class="docutils literal notranslate"><span class="pre">Modbus.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.read_registers"><code class="docutils literal notranslate"><span class="pre">Modbus.read_registers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.read_register"><code class="docutils literal notranslate"><span class="pre">Modbus.read_register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.write_single_coil"><code class="docutils literal notranslate"><span class="pre">Modbus.write_single_coil()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.write_register"><code class="docutils literal notranslate"><span class="pre">Modbus.write_register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.query_data"><code class="docutils literal notranslate"><span class="pre">Modbus.query_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.restart_communication"><code class="docutils literal notranslate"><span class="pre">Modbus.restart_communication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.return_diag_register"><code class="docutils literal notranslate"><span class="pre">Modbus.return_diag_register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.force_listen_only"><code class="docutils literal notranslate"><span class="pre">Modbus.force_listen_only()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.diag_read"><code class="docutils literal notranslate"><span class="pre">Modbus.diag_read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.clear_overrun"><code class="docutils literal notranslate"><span class="pre">Modbus.clear_overrun()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.write_registers"><code class="docutils literal notranslate"><span class="pre">Modbus.write_registers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.read_device_id"><code class="docutils literal notranslate"><span class="pre">Modbus.read_device_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.get_comm_event_log"><code class="docutils literal notranslate"><span class="pre">Modbus.get_comm_event_log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.get_comm_event_counter"><code class="docutils literal notranslate"><span class="pre">Modbus.get_comm_event_counter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phox_modbus.modbus.Modbus.report_server_id"><code class="docutils literal notranslate"><span class="pre">Modbus.report_server_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#phox_modbus.modbus.ModbusError"><code class="docutils literal notranslate"><span class="pre">ModbusError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phox_modbus.modbus.SlaveExceptionError"><code class="docutils literal notranslate"><span class="pre">SlaveExceptionError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phox_modbus.modbus.IllegalRequestError"><code class="docutils literal notranslate"><span class="pre">IllegalRequestError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phox_modbus.modbus.MasterReportedError"><code class="docutils literal notranslate"><span class="pre">MasterReportedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phox_modbus.modbus.NoResponseError"><code class="docutils literal notranslate"><span class="pre">NoResponseError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phox_modbus.modbus.InvalidResponseError"><code class="docutils literal notranslate"><span class="pre">InvalidResponseError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exceptions-inherited-from-pyserial">Exceptions inherited from pyserial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#serial.SerialException"><code class="docutils literal notranslate"><span class="pre">SerialException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#serial.PortNotOpenError"><code class="docutils literal notranslate"><span class="pre">PortNotOpenError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#serial.SerialTimeoutException"><code class="docutils literal notranslate"><span class="pre">SerialTimeoutException</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">phox_modbus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">modbus.py</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/autodoc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="modbus-py">
+<h1>modbus.py<a class="headerlink" href="#modbus-py" title="Link to this heading"></a></h1>
+<section id="modbus-class">
+<h2>Modbus class<a class="headerlink" href="#modbus-class" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phox_modbus.modbus.</span></span><span class="sig-name descname"><span class="pre">Modbus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baudrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">19200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'even'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_serial_latency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phox_modbus.modbus.Modbus" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Modbus class:
+Open a serial based modbus link.
+Give standard methods for Modbus functions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A feedback (sent and received frames…) is provided by registering
+a function using the register_feedback_handler method</p>
+<p>Feedback events are (CRC_error, Frame_OK, Empty_frame, 
+Frame_lenght_error, Unexpected_content, …)</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – Serial port name or None (default).</p></li>
+<li><p><strong>baudrate</strong> – Serial link baudrate. Default is 19200.</p></li>
+<li><p><strong>timeout</strong> – Read timeout in seconds. Default is 0.1s.</p></li>
+<li><p><strong>parity</strong> – Serial link parity. Possible valuers are ‘even’ (default) or ‘odd’</p></li>
+<li><p><strong>max_serial_latency</strong> – Shall be set to the maximum expected serial latency of the system
+Default is 0.001s
+Increase this parameter if peaces of frame are lost in legacy mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A modbus link object</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.parity">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parity</span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.parity" title="Link to this definition"></a></dt>
+<dd><p>Get or set the Modbus link parity. 
+Setting to a new value will reconfigure the serial port automatically.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.baudrate">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">baudrate</span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.baudrate" title="Link to this definition"></a></dt>
+<dd><p>Get or set the Modbus link baudrate. 
+Setting to a new value will reconfigure the serial port automatically.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.timeout">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">timeout</span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.timeout" title="Link to this definition"></a></dt>
+<dd><p>Get or set the Modbus link receive timeout.
+Setting to a new value will reconfigure the serial port automatically.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.is_open">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_open</span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.is_open" title="Link to this definition"></a></dt>
+<dd><p>Get the modbus link state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.register_feedback_handler">
+<span class="sig-name descname"><span class="pre">register_feedback_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.register_feedback_handler" title="Link to this definition"></a></dt>
+<dd><p>Register a feedback output handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handler</strong> – Function called each time there is
+a feedback from the Modbus class</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.open" title="Link to this definition"></a></dt>
+<dd><p>Open the Modbus link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>port</strong> – Serial port name or None (default).</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.close" title="Link to this definition"></a></dt>
+<dd><p>Close the Modbus link.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.read_registers">
+<span class="sig-name descname"><span class="pre">read_registers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_reg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.read_registers" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 03: Read holding registers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>reg_addr</strong> – Starting address (0x0000 to 0xFFFF).</p></li>
+<li><p><strong>nb_reg</strong> – Quantity of registers to read (1 to 125).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns list of int<span class="colon">:</span></dt>
+<dd class="field-even"><p>Registers’ content.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.read_register">
+<span class="sig-name descname"><span class="pre">read_register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.read_register" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 03: Read holding registers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>reg_addr</strong> – Starting address (0x0000 to 0xFFFF).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns int<span class="colon">:</span></dt>
+<dd class="field-even"><p>Register’ value.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.write_single_coil">
+<span class="sig-name descname"><span class="pre">write_single_coil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coil_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.write_single_coil" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 05 Write single coil.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>coil_addr</strong> – Coil’s address (0x0000 to 0xFFFF).</p></li>
+<li><p><strong>state</strong> – ‘ON’ or ‘OFF’.</p></li>
+<li><p><strong>kwargs</strong> – optional f_key argument</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.write_register">
+<span class="sig-name descname"><span class="pre">write_register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.write_register" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 06: Preset single register.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>reg_addr</strong> – Starting address (0x0000 to 0xFFFF).</p></li>
+<li><p><strong>value</strong> – Value to write (0x0000 to 0xFFFF).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.query_data">
+<span class="sig-name descname"><span class="pre">query_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value=&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.query_data" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 08 &gt; Sub-function 00: Query data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>data</strong> – Value to query (0x0000 to 0xFFFF).</p></li>
+</ul>
+</dd>
+</dl>
+<p>returns int: The query data returned value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.restart_communication">
+<span class="sig-name descname"><span class="pre">restart_communication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.restart_communication" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 08 &gt; Sub-function 01: Restart communication</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.return_diag_register">
+<span class="sig-name descname"><span class="pre">return_diag_register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.return_diag_register" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 08 &gt; Sub-functions 02: Return diag register.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns int<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Status</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.force_listen_only">
+<span class="sig-name descname"><span class="pre">force_listen_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.force_listen_only" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 08 &gt; Sub-function 04: Force listen only</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.diag_read">
+<span class="sig-name descname"><span class="pre">diag_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subfunction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.diag_read" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 08 &gt; Sub-functions 11 to 18: Return counters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>subfunction</strong> – Sub-function (11 to 18).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns int<span class="colon">:</span></dt>
+<dd class="field-even"><p>The requested counter value.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.clear_overrun">
+<span class="sig-name descname"><span class="pre">clear_overrun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.clear_overrun" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 08 &gt; Sub-functions 20: Return diag register</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.write_registers">
+<span class="sig-name descname"><span class="pre">write_registers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.write_registers" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 16: Write multiple registers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>reg_addr</strong> – First register’s address (0x0000 to 0xFFFF).</p></li>
+<li><p><strong>values</strong> – list of words (0x0000 to 0xFFFF) to write (max 123 words).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.read_device_id">
+<span class="sig-name descname"><span class="pre">read_device_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idcode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.read_device_id" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 43 &gt; MEI 14: Read device id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p></li>
+<li><p><strong>idcode</strong> – Read device ID code 
+(01: basic, 02: regular, 03: extended, 04: specific)</p></li>
+<li><p><strong>object_id</strong> – Id of the first requested object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns dict<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionnay of id objects.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.get_comm_event_log">
+<span class="sig-name descname"><span class="pre">get_comm_event_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.get_comm_event_log" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 12 -&gt; Get Comm Event Log</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p>
+</dd>
+<dt class="field-even">Returns dict<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status (int), Event count (int), Events (list[64])</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.get_comm_event_counter">
+<span class="sig-name descname"><span class="pre">get_comm_event_counter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.get_comm_event_counter" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 11 -&gt; Get Comm Event Counter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p>
+</dd>
+<dt class="field-even">Returns dict<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status (int), Event count (int)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phox_modbus.modbus.Modbus.report_server_id">
+<span class="sig-name descname"><span class="pre">report_server_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#phox_modbus.modbus.Modbus.report_server_id" title="Link to this definition"></a></dt>
+<dd><p>Implements Modbus function 17 -&gt; Report Server ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device_addr</strong> – Modbus slave address of the device (0 to 247).</p>
+</dd>
+<dt class="field-even">Returns dict<span class="colon">:</span></dt>
+<dd class="field-even"><p>Server ID (str), Run indicator status (‘ON’ or ‘OFF”)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Arguments are out of range.</p></li>
+<li><p><a class="reference internal" href="#phox_modbus.modbus.ModbusError" title="phox_modbus.modbus.ModbusError"><strong>ModbusError</strong></a> – Modbus protocol error
+or the device answers with an exception.</p></li>
+<li><p><a class="reference internal" href="#serial.SerialException" title="serial.SerialException"><strong>serial.SerialException</strong></a> – Serial port is missing, busy,
+or can not be configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phox_modbus.modbus.ModbusError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phox_modbus.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusError</span></span><a class="headerlink" href="#phox_modbus.modbus.ModbusError" title="Link to this definition"></a></dt>
+<dd><p>Exception raised in case of Modbus communication error.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phox_modbus.modbus.SlaveExceptionError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phox_modbus.modbus.</span></span><span class="sig-name descname"><span class="pre">SlaveExceptionError</span></span><a class="headerlink" href="#phox_modbus.modbus.SlaveExceptionError" title="Link to this definition"></a></dt>
+<dd><p>Exceptions that the Modbus device reports.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phox_modbus.modbus.IllegalRequestError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phox_modbus.modbus.</span></span><span class="sig-name descname"><span class="pre">IllegalRequestError</span></span><a class="headerlink" href="#phox_modbus.modbus.IllegalRequestError" title="Link to this definition"></a></dt>
+<dd><p>The slave has received an illegal request.</p>
+<p>Can be “Illegal function”, “Illegal address” or “Illegal data value”</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phox_modbus.modbus.MasterReportedError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phox_modbus.modbus.</span></span><span class="sig-name descname"><span class="pre">MasterReportedError</span></span><a class="headerlink" href="#phox_modbus.modbus.MasterReportedError" title="Link to this definition"></a></dt>
+<dd><p>Exceptions that are detected by the master.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phox_modbus.modbus.NoResponseError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phox_modbus.modbus.</span></span><span class="sig-name descname"><span class="pre">NoResponseError</span></span><a class="headerlink" href="#phox_modbus.modbus.NoResponseError" title="Link to this definition"></a></dt>
+<dd><p>No response from the slave.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phox_modbus.modbus.InvalidResponseError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phox_modbus.modbus.</span></span><span class="sig-name descname"><span class="pre">InvalidResponseError</span></span><a class="headerlink" href="#phox_modbus.modbus.InvalidResponseError" title="Link to this definition"></a></dt>
+<dd><p>The response does not fulfill the Modbus standard.</p>
+</dd></dl>
+
+<section id="exceptions-inherited-from-pyserial">
+<h3>Exceptions inherited from pyserial<a class="headerlink" href="#exceptions-inherited-from-pyserial" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="serial.SerialException">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial.</span></span><span class="sig-name descname"><span class="pre">SerialException</span></span><a class="headerlink" href="#serial.SerialException" title="Link to this definition"></a></dt>
+<dd><p>Base class for serial port related exceptions.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="serial.PortNotOpenError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial.</span></span><span class="sig-name descname"><span class="pre">PortNotOpenError</span></span><a class="headerlink" href="#serial.PortNotOpenError" title="Link to this definition"></a></dt>
+<dd><p>Port is not open</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="serial.SerialTimeoutException">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial.</span></span><span class="sig-name descname"><span class="pre">SerialTimeoutException</span></span><a class="headerlink" href="#serial.SerialTimeoutException" title="Link to this definition"></a></dt>
+<dd><p>Write timeouts give an exception</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="presentation.html" class="btn btn-neutral float-left" title="phox-modbus" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PHOXENE.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

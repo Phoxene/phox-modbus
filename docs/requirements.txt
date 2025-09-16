@@ -1,0 +1,4 @@
+# Dependancies for sphinx documentation build
+# This file can be used for automated installation of the dependancies
+sphinx
+sphinx-rtd-theme
