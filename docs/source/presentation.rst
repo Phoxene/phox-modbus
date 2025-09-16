@@ -33,7 +33,7 @@ Features
   by using frame lenght prediction). A legacy mode is available.
 * Hack tools allows to test modbus server response to corrupted frames
 * Optional feeeback of sent and received frames as well as Modbus events.
-  Main usage is debbug.
+  Main usage is debbugging.
 * The files in this package are 100% pure Python.
 
 Requirements

@@ -25,7 +25,7 @@ Exceptions handling:
         serial.SerialExeption(IOError): 
                 Base class for serial port related exceptions
         serial.SerialTimeoutException(SerialException):
-                Write timeouts give an exception
+                Write timeouts case an exception
         Serial.PortNotOpenError(SerialException): 
                 Port is not open
 
@@ -423,7 +423,7 @@ class Modbus:
                              instr = 8, subfunction = subfunction, **kwargs)
 
     def clear_overrun(self, device_addr: int, **kwargs) -> None:
-        """Implements Modbus function 08 > Sub-functions 20: Return diag register
+        """Implements Modbus function 08 > Sub-functions 20: Clear overrun
         
         :raises ModbusError: Modbus protocol error
                             or the device answers with an exception.
